@@ -26,8 +26,8 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 
 # Install MariaDB and set default root password and create database nextcloud
 
-RUN DEBIAN_FRONTEND=noninteractive echo 'mariadb-server mariadb-server/root_password  password water555m' | debconf-set-selections
-RUN DEBIAN_FRONTEND=noninteractive echo 'mariadb-server mariadb-server/root_password_again password water555m' | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive echo 'mariadb-server mariadb-server/root_password  password My-Password' | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive echo 'mariadb-server mariadb-server/root_password_again password My-Password' | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive apt-get install mariadb-server -y
 
 ADD init_db.sh /tmp/init_db.sh
