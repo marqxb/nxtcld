@@ -42,9 +42,6 @@ RUN chown www-data:www-data /var/www/html/ -R
 EXPOSE 80
 EXPOSE 443
 
-# Copy this repo into place. (ignore this is my testing)
-ADD www /var/www/html
-
 # Update the default apache site with the config we created.
 ADD nextcloud.conf /etc/apache2/sites-enabled/000-default.conf
 
@@ -52,11 +49,11 @@ ADD nextcloud.conf /etc/apache2/sites-enabled/000-default.conf
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Making sure apache2 and mariadb service runs 
-# ENTRYPOINT service apache2 start && bash
-# ENTRYPOINT service mysql restart && bash
-ADD service.sh /tmp/service.sh
-RUN chmod +x /tmp/service.sh
-ENTRYPOINT /tmp/service.sh
+ENTRYPOINT service apache2 start && bash
+ENTRYPOINT service mysql restart && bash
+# ADD service.sh /tmp/service.sh
+# RUN chmod +x /tmp/service.sh
+# ENTRYPOINT /tmp/service.sh
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
